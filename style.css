@@ -95,7 +95,7 @@
 }
 
 .product-card img {
-  width: 250px;
+  width: 200px;
 }
 
 .details {
@@ -342,7 +342,7 @@ h3 {
 
 
 .category-btn {
-  font-size: 30px;
+  font-size: 20px;
   padding: 15px 25px;
   margin: 8px;
   background-color: #080808;
