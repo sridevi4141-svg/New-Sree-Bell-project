@@ -1,7 +1,10 @@
 .body {
   margin: 0;
+  top:0;
+  padding: 0;
    padding-top: 70px;
-   padding-bottom: 80px;
+  padding-bottom: 100px;
+  overflow-x: hidden;
 }
 
 
@@ -12,7 +15,10 @@
   gap: 15px;
   padding: 20px;
   max-width: 800px;
+  width:100%;
   margin: auto;
+   padding-bottom: 120px; 
+   
 }
 
 .box {
@@ -58,7 +64,7 @@
 
 .tabs button {
   padding: 8px 12px;
-  border-radius: 50px;
+  border-radius: 30px;
 }
 
 .tabs .active {
@@ -75,11 +81,11 @@
 .cart-btn {
   position: absolute;
   right: 15px;
-  font-size: 22px;
+  font-size: 20px;
   background: white;
   padding: 10px;
   border-radius: 50%;
-  margin:25px;
+  margin: 10px;
  
 }/* Product */
 .product-card {
@@ -136,7 +142,8 @@
 }
 
 .inputs input {
-  width: 100px;     /* 🔥 bigger boxes */
+  width: 70px;
+  height: 35px;
   padding: 12px;
   font-size: 20px;
   text-align: center;
@@ -208,31 +215,38 @@ input {
 .center {
   text-align:center;
   width: 100%;
-  font-size:  25px;
+  font-size:  18px;
 
 }
 .order-box-bottom {
+  
  
-  position: fixed;   /* 🔥 important */
-  bottom: 0;
-  left: 0;
   width: 100%;
-
+ 
+  height: 90px;   /* 🔥 fix height */
+  padding: 10px;
+   box-sizing: border-box;
   background: green;
-  padding: 15px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  z-index: 1000;
+  position: fixed;
+  bottom: 0;
+   height: 80px;
 }
+
 .order-btn {
-  background: red;
+  font-size: 15px;        /* 🔥 text size */
+  padding: 15px;
+  width: 20%;
+  background-color: #a72828;
   color: white;
   border: none;
-  padding: 12px 20px;
   border-radius: 8px;
+  margin-top: 15px;
+  cursor: pointer;
+   
+ 
 }
 
 .order-btn:hover {
@@ -321,7 +335,7 @@ h3 {
   }
 
   .product-card img {
-    width: 90px;   /* 🔥 image small */
+    width: 150px;   /* 🔥 image small */
   }
 
   .details h3 {
@@ -340,7 +354,7 @@ h3 {
     font-size: 20px;
   }
 .category-btn {
-    font-size: 26px;
+    font-size: 22px;
     width: 100%;
   }
   .order-btn {
