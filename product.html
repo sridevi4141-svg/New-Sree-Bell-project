@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Products</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ 
+
+<div class="header">
+  <button class="back-btn" onclick="goBack()">⬅</button>
+
+  <div class="center">
+    <h2>Products</h2>
+  </div>
+
+  <!-- 🔥 CART ICON -->
+  <button class="cart-btn" onclick="goToCart()">🛒</button>
+</div>
+<div class="tabs">
+  <button  class="category-btn" onclick="goToCategory('rice')">Rice</button>
+  <button  class="category-btn" onclick="goToCategory('bellfresh')">Bell Fresh</button>
+  <button  class="category-btn" onclick="goToCategory('rava')">rava</button>
+  <button  class="category-btn" onclick="goToCategory('kirana')">kirana</button>
+</div>
+
+<div id="products"></div>
+
+<div class="order-box-bottom">
+  <h3>Total: ₹<span id="finalTotal">0</span></h3>
+  <button class="order-btn" onclick="placeOrder()">Place Order</button>
+</div>
+<script type="module" src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Order</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+
+    .html, body {
+     width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;   /* 🔥 horizontal move full stop */
+}
+    .body {
+      margin: 10;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+    }
+  * {
+  box-sizing: border-box;   /* 🔥 padding overflow prevent */
+}
+    .bill-box {
+      background: #fff;
+      width: 100%;
+      min-height: 100vh;
+      padding: 15px;
+      box-sizing: border-box;
+    }
+
+    
+
+    #orderDetails {
+      font-size: 25px;
+      line-height: 1.5;
+    }
+
+    .order-item {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .order-item strong {
+      font-size: 20px;
+    }
+
+    
+
+    input {
+      width: 80%;
+      padding: 15px;
+      font-size: 25px;
+      margin-top: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      
+    }
+
+    
+
+#orderDetails {
+  font-size: 26px; /* ⬆ increase */
+  line-height: 1.6;
+}
+
+.order-item {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.order-item strong {
+  font-size: 22px; /* ⬆ increase */
+}
+
+#totalAmount {
+  font-size: 28px; /* ⬆ increase */
+  font-weight: bold;
+  text-align: right;
+  margin-top: 15px;
+}
+
+input {
+  width: 100%; /* 🔥 full width */
+  padding: 18px;
+  font-size: 26px; /* ⬆ increase */
+  margin-top: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  width: 100%; /* 🔥 full width */
+  padding: 18px;
+  font-size: 22px; /* ⬆ increase */
+  margin-top: 20px;
+  background: green;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: darkgreen;
+}
+
+#msg {
+  text-align: center;
+  font-size: 20px; /* ⬆ increase */
+  margin-top: 10px;
+}
+  </style>
+
+</head>
+<body>
+
+<div class="bill-box">
+
+  <h2>SREE BELL RICE</h2>
+
+  <div id="orderDetails"></div>
+
+  
+
+  <input type="text" id="phone" placeholder="Enter Mobile Number">
+
+  <button onclick="submitOrder()">Submit Order</button>
+
+  <div id="msg"></div>
+
+</div>
+
+<script type="module" src="script.js"></script>
+
+</body>
+</html>

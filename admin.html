@@ -1,0 +1,31 @@
+
+<h2>Add Product</h2>
+
+<input id="newName" placeholder="Product Name">
+<input id="newPrice" type="number" placeholder="Price">
+<input id="newImage" placeholder="Image (rice.png)">
+<input id="newWeight" type="number" placeholder="Weight">
+
+
+<select id="stock">
+  <option value="in">In Stock</option>
+  <option value="out">Out of Stock</option>
+</select>
+
+<!-- 🔥 ADD CATEGORY -->
+<select id="category">
+  <option value="rice">Rice</option>
+  <option value="bellfresh">Bell Fresh</option>
+  <option value="rava">rava</option>
+  <option value="kirana">kirana</option>
+</select>
+
+<br><br>
+<button onclick="addProduct()">Add Product</button>
+
+<hr>
+
+<h2>All Products</h2>
+<div id="productList"></div>
+
+<script type="module" src="admin.js"></script>
