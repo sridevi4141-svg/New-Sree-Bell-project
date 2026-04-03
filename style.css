@@ -81,16 +81,16 @@
 
 
 .cart-btn {
-  position: absolute;
-  right: 1opx;
-  font-size: 20px;
+  position: absolute;  /* 🔥 header lopala fix */
+  right: 20px;
+  top: 10px;
+  margin-top:10px;
+  font-size: 23px;
   background: white;
   padding: 10px;
   border-radius: 50%;
-  margin: 10px;
-  top:8px;
- 
-}/* Product */
+}
+/* Product */
 .product-card {
   display: flex;
   gap: 12px;
@@ -132,7 +132,7 @@
   display: flex;
   justify-content: flex-start;  /* 🔥 left-right align */
   font-size: 20px;
-  gap: 80px;
+  gap: 50px;
   color: gray;
   margin-top: 10px;
 }
@@ -368,8 +368,8 @@ h3 {
 
 
 .category-btn {
-  font-size: 20px;
-  padding: 15px 25px;
+  font-size: 15px;
+  padding: 8px 10px;
   margin: 8px;
   background-color: green;
   color: white;
