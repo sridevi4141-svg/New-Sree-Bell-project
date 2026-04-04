@@ -239,7 +239,7 @@ input {
 }
 
 .order-btn {
-  font-size: 15px;        /* 🔥 text size */
+  font-size: 10px;        /* 🔥 text size */
   padding: 15px;
   width: 20%;
   background-color: #a72828;
@@ -282,6 +282,7 @@ body {
   flex-wrap: wrap;
   gap: 15px;
   padding: 15px;
+  padding-bottom: 80px;
 }
 
 .card {
