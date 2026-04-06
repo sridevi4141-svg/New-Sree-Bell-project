@@ -215,9 +215,11 @@ window.addEventListener("load", function () {
   if (totalEl) totalEl.innerText = "Total: ₹" + total;
 });
 
-window.onload = function() {
-  displayCart();
-}
+window.onload = function () {
+  if (document.getElementById("cartItems")) {
+    displayCart();
+  }
+};
 
 function displayCart() {
   const cartDiv = document.getElementById("cartItems");
@@ -227,25 +229,35 @@ function displayCart() {
   cartDiv.innerHTML = "";  // clear first
 
   for (let key in cart) {
-    const item = cart[key];
-    const itemTotal = item.bags * item.price;
-    total += itemTotal;
+  const item = cart[key];
+  const itemTotal = item.bags * item.price;
+  total += itemTotal;
 
-    cartDiv.innerHTML += `
-   <div class="cart-item">
-    <img src="images/${item.image}" style="width:100px; height:100px;">
-    <div class="cart-details">
-    <strong>${item.name}</strong><br>
-    Qty: ${item.bags} × ₹${item.price}
-  </div>
-  </div>
-`;
-  }
+  cartDiv.innerHTML += `
+    <div class="cart-item">
+      <img src="images/${item.image}" style="width:100px; height:100px;">
 
-  document.getElementById("finalTotal").innerText = total;
+      <div class="cart-details">
+        <strong>${item.name}</strong><br>
+        Qty: ${item.bags} × ₹${item.price}
+      </div>
+
+      <!-- 🔥 key use cheyyali -->
+      <button onclick="removeItem('${key}')">❌</button>
+    </div>
+  `;
+}
 }
 
-// Example placeOrder function
+window.removeItem = function(key) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || {};
+
+  delete cart[key];
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  displayCart();
+};// Example placeOrder function
 window.placeOrder = function() {
   alert("Order placed! Total: ₹" + document.getElementById("finalTotal").innerText);
 }  
@@ -265,44 +277,31 @@ window.submitOrder = async function () {
   }
 
   try {
-    // 🔹 Save order to Firebase
     await addDoc(collection(db, "orders"), {
       phone: phone,
-      items: Object.values(cartData).map(item => ({
-        name: item.name,
-        price: item.price,
-        bags: item.bags,
-        total: item.bags * item.price
-      })),
+      items: Object.values(cartData),
       totalAmount: total,
       status: "new",
       createdAt: new Date()
     });
 
-    // 🔹 Show order details on same page
-    const orderDiv = document.getElementById("orderDetails");
-    orderDiv.innerHTML = `<h3>Order Details for: ${phone}</h3>`;
-    
-    Object.values(cartData).forEach(item => {
-      orderDiv.innerHTML += `
-        <div>
-          <strong>${item.name}</strong> - ${item.bags} ${item.category === 'bellfresh' ? 'packets' : 'bags'} × ₹${item.price} = ₹${item.bags * item.price}
-        </div>
-      `;
-    });
+    // 🔥 SUCCESS UI
 
-    orderDiv.innerHTML += `<h3>Total: ₹${total}</h3>`;
-
-    // 🔹 Clear cart from localStorage (optional)
+    // cart clear
     localStorage.removeItem("cart");
     localStorage.removeItem("total");
 
-  } catch (e) {
-    console.error(e);
-    alert("Error saving order ❌");
-  }
-};
+    // form hide
+    document.getElementById("orderForm").style.display = "none";
 
+    // success message show
+    document.getElementById("successMsg").style.display = "block";
+
+  } catch (error) {
+  console.log(error);   // 🔥 real error chupisthundi
+  alert("Error placing order");
+}
+};
 window.placeOrder = function () {
   window.location.href = "order.html";
 };
