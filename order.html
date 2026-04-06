@@ -117,33 +117,17 @@ button:hover {
 
   <h2>SREE BELL RICE</h2>
 
-  <div id="orderForm" style="text-align:center; margin-top:20px;">
+  <div id="orderDetails"></div>
 
-  <h2>Enter Details</h2>
+  
 
-  <!-- 📱 Phone number -->
-  <input 
-    type="text" 
-    id="phone" 
-    placeholder="Enter phone number"
-    style="padding:10px; width:80%; margin:10px;"
-  >
+  <input type="text" id="phone" placeholder="Enter Mobile Number">
 
-  <br>
+  <button onclick="submitOrder()">Submit Order</button>
 
-  <!-- 🛒 Submit button -->
-  <button onclick="submitOrder()" style="padding:10px 20px;">
-    Submit Order
-  </button>
-
-</div>
- 
-
-
-<div id="successMsg" style="display:none; text-align:center; margin-top:20px;">
+  <div id="successMsg" style="display:none; text-align:center;">
   <h2 style="color:green;">✔️ Order Submitted Successfully</h2>
 </div>
-
 <script type="module" src="script.js"></script>
 
 </body>

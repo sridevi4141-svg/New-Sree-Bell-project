@@ -215,11 +215,9 @@ window.addEventListener("load", function () {
   if (totalEl) totalEl.innerText = "Total: ₹" + total;
 });
 
-window.onload = function () {
-  if (document.getElementById("cartItems")) {
-    displayCart();
-  }
-};
+window.onload = function() {
+  displayCart();
+}
 
 function displayCart() {
   const cartDiv = document.getElementById("cartItems");
@@ -249,15 +247,8 @@ function displayCart() {
 }
 }
 
-window.removeItem = function(key) {
-  let cart = JSON.parse(localStorage.getItem("cart")) || {};
 
-  delete cart[key];
-
-  localStorage.setItem("cart", JSON.stringify(cart));
-
-  displayCart();
-};// Example placeOrder function
+// Example placeOrder function
 window.placeOrder = function() {
   alert("Order placed! Total: ₹" + document.getElementById("finalTotal").innerText);
 }  
@@ -277,31 +268,46 @@ window.submitOrder = async function () {
   }
 
   try {
+    // 🔹 Save order to Firebase
     await addDoc(collection(db, "orders"), {
       phone: phone,
-      items: Object.values(cartData),
+      items: Object.values(cartData).map(item => ({
+        name: item.name,
+        price: item.price,
+        bags: item.bags,
+        total: item.bags * item.price
+      })),
       totalAmount: total,
       status: "new",
       createdAt: new Date()
     });
+     
+    // 🔹 Show order details on same page
+    const orderDiv = document.getElementById("orderDetails");
+    orderDiv.innerHTML = `<h3>Order Details for: ${phone}</h3>`;
+    
+    Object.values(cartData).forEach(item => {
+      orderDiv.innerHTML += `
+        <div>
+          <strong>${item.name}</strong> - ${item.bags} ${item.category === 'bellfresh' ? 'packets' : 'bags'} × ₹${item.price} = ₹${item.bags * item.price}
+        </div>
+      `;
+    });
 
-    // 🔥 SUCCESS UI
+    orderDiv.innerHTML += `<h3>Total: ₹${total}</h3>`;
 
-    // cart clear
+    // 🔹 Clear cart from localStorage (optional)
     localStorage.removeItem("cart");
     localStorage.removeItem("total");
-
-    // form hide
-    document.getElementById("orderForm").style.display = "none";
-
-    // success message show
-    document.getElementById("successMsg").style.display = "block";
-
-  } catch (error) {
-  console.log(error);   // 🔥 real error chupisthundi
-  alert("Error placing order");
-}
+    
+ // 🔥 ONLY THIS ADD
+  document.getElementById("successMsg").style.display = "block";
+  } catch (e) {
+    console.error(e);
+    alert("Error saving order ❌");
+  }
 };
+
 window.placeOrder = function () {
   window.location.href = "order.html";
 };
