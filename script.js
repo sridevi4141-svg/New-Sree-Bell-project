@@ -49,10 +49,17 @@ function displayProducts(products) {
     let secondLabel = (p.category === "bellfresh") ? "Pieces" : "Quintal";
     let secondClass = (p.category === "bellfresh") ? "pieces" : "quintal";
 
-    let unitText = (p.category === "bellfresh") 
-      ? `${p.weight} pieces` 
-      : `${p.weight} kg`;
+    let unitText;
 
+if (p.category === "bellfresh") {
+  unitText = `${p.weight} pieces`;
+} else {
+  if (p.weight < 1) {
+    unitText = `${p.weight * 1000} gm`;  // 🔥 convert
+  } else {
+    unitText = `${p.weight} kg`;
+  }
+}
     div.innerHTML += `
       <div class="product-card">
         <img src="images/${p.image}" class="icon">
@@ -63,8 +70,22 @@ function displayProducts(products) {
             <small>${p.name} (${unitText})</small>
           </h3>
 
-          <div class="price">₹${p.price}</div>
-
+          <div class="price">
+  ${
+    p.category === "kirana"
+    ? `
+      <div>
+        <span style="color: gray;">MRP:</span>
+        <span style="text-decoration:  color: gray;"> ₹${p.mrp || 0}</span>
+      </div>
+      <div>
+        <span style="color: green;">SP:</span>
+        <span style="color: green; font-weight: bold;"> ₹${p.price || 0}</span>
+      </div>
+    `
+    : `₹${p.price || 0}`
+  }
+</div>
           <div class="labels">
             <span>${firstLabel}</span>
             <span>${secondLabel}</span>
