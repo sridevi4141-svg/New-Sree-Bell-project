@@ -261,29 +261,68 @@ function displayCart() {
   const cart = JSON.parse(localStorage.getItem("cart")) || {};
   let total = 0;
 
-  cartDiv.innerHTML = "";  // clear first
+  if (!cartDiv) return;
 
+  cartDiv.innerHTML = "";
+
+  // 🔹 ITEMS LOOP
   for (let key in cart) {
-  const item = cart[key];
-  const itemTotal = item.bags * item.price;
-  total += itemTotal;
+    const item = cart[key];
+    const itemTotal = item.bags * item.price;
+    total += itemTotal;
 
-  cartDiv.innerHTML += `
-    <div class="cart-item">
-      <img src="images/${item.image}" style="width:100px; height:100px;">
+    cartDiv.innerHTML += `
+      <div class="cart-item">
+        <img src="images/${item.image}" style="width:100px; height:100px;">
 
-      <div class="cart-details">
-        <strong>${item.name}</strong><br>
-        Qty: ${item.bags} × ₹${item.price}
+        <div class="cart-details">
+          <strong>${item.name}</strong><br>
+          Qty: ${item.bags} × ₹${item.price}<br>
+          Total: ₹${itemTotal}
+        </div>
+
+        <button onclick="removeItem('${key}')">❌</button>
       </div>
+    `;
+  }
 
-      <!-- 🔥 key use cheyyali -->
-      <button onclick="removeItem('${key}')">❌</button>
+  // 🔥 DELIVERY LOGIC
+  let delivery = 0;
+  if (total > 0 && total < 300) {
+    delivery = 20;
+  }
+
+  let finalTotal = total + delivery;
+
+  // 🔹 DELIVERY ROW
+cartDiv.innerHTML += `
+  <hr>
+  <div style="display:flex; justify-content:space-between;">
+    <span>Delivery Charge</span>
+    <span>₹${delivery}</span>
+  </div>
+`;
+
+// 🔥 FREE DELIVERY MESSAGE
+if (total >= 300) {
+  cartDiv.innerHTML += `
+    <div style="color:green; font-weight:bold; margin-top:5px;">
+      ✅ Free Delivery on orders above ₹300
     </div>
   `;
 }
-}
 
+  // 🔹 TOTAL ROW
+  cartDiv.innerHTML += `
+    <div style="display:flex; justify-content:space-between; font-weight:bold;">
+      <span>Total</span>
+      <span>₹${finalTotal}</span>
+    </div>
+  `;
+
+  // 🔥 SAVE TOTAL
+  localStorage.setItem("total", finalTotal);
+}
 
 // Example placeOrder function
 window.placeOrder = function() {
@@ -318,6 +357,21 @@ window.submitOrder = async function () {
       status: "new",
       createdAt: new Date()
     });
+
+    // 🔥 ORDER PAGE NOTE (only if element exists)
+let noteEl = document.getElementById("deliveryNote");
+
+if (noteEl) {
+  if (total >= 300) {
+    noteEl.innerText = "✅ Free Delivery on orders above ₹300";
+    noteEl.style.color = "green";
+  } else if (total > 0) {
+    noteEl.innerText = "🚚 Delivery charge ₹20 for orders below ₹300";
+    noteEl.style.color = "red";
+  } else {
+    noteEl.innerText = "";
+  }
+}
      
     // 🔹 Show order details on same page
     const orderDiv = document.getElementById("orderDetails");
