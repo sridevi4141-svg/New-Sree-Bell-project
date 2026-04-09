@@ -191,19 +191,35 @@ function updateTotal() {
 
   for (let key in cart) {
     let item = cart[key];
-
     let qty = parseFloat(item.bags) || 0;
     let price = parseFloat(item.price) || 0;
 
     total += qty * price;
   }
 
-  localStorage.setItem("total", total); // 🔥 store total
+  // 🔥 delivery logic
+  let delivery = 0;
+  if (total > 0 && total < 300) {
+    delivery = 20;
+  }
 
-  let el = document.getElementById("finalTotal");
-  if (el) el.innerText = total;
+  let finalTotal = total + delivery;
+
+  // 🔥 show subtotal
+  let subEl = document.getElementById("subTotal");
+  if (subEl) subEl.innerText = total;
+
+  // 🔥 show delivery
+  let delEl = document.getElementById("deliveryCharge");
+  if (delEl) delEl.innerText = delivery;
+
+  // 🔥 show final total
+  let finalEl = document.getElementById("finalTotal");
+  if (finalEl) finalEl.innerText = finalTotal;
+
+  // 🔥 store
+  localStorage.setItem("total", finalTotal);
 }
-
 window.addEventListener("load", function () {
 
   let orderDiv = document.getElementById("orderList");
@@ -372,4 +388,12 @@ window.addEventListener("load", function () {
   updateTotal(); // 🔥 every page load lo run
 });
 
+window.removeItem = function (id) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || {};
 
+  delete cart[id];   // 🔥 item remove
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  displayCart();   // 🔥 reload cart
+};
